@@ -9,8 +9,8 @@ type OrderRepository struct {
 	DB *sql.DB
 }
 
-func NewOrderRepository(DB *sql.DB) OrderRepository {
-	return OrderRepository{DB: DB}
+func NewOrderRepository(DB *sql.DB) *OrderRepository {
+	return &OrderRepository{DB: DB}
 }
 
 func (r *OrderRepository) Save(order *entity.Order) error {
