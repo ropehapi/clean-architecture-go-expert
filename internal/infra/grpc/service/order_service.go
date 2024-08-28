@@ -34,13 +34,21 @@ func (s *OrderService) CreateOrder(ctx context.Context, req *pb.CreateOrderReque
 	}, nil
 }
 
-//func (s *OrderService) ListOrder(ctx context.Context, in *pb.Blank) (*pb.OrderList, error) {
-//	var list *pb.OrderList
-//	output, err := s.ListOrderUseCase.Execute()
-//	if err != nil {
-//		return nil, err
-//	}
-//	for _, order := range output {
-//
-//	}
-//}
+func (s *OrderService) ListOrder(ctx context.Context, in *pb.Blank) (*pb.OrderList, error) {
+	orders, err := s.ListOrderUseCase.Execute()
+	if err != nil {
+		return nil, err
+	}
+
+	var ordersResponse []*pb.CreateOrderResponse
+	for _, order := range orders {
+		orderResponse := &pb.CreateOrderResponse{
+			Id:         order.ID,
+			Price:      float32(order.Price),
+			Tax:        float32(order.Tax),
+			FinalPrice: float32(order.FinalPrice),
+		}
+		ordersResponse = append(ordersResponse, orderResponse)
+	}
+	return &pb.OrderList{Orders: ordersResponse}, nil
+}
