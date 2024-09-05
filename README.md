@@ -7,3 +7,26 @@ gRPC: ~evans -r repl <br>
 GraphQL: http://localhost:8080 <br>
 RabbitMQ: http://localhost:15672 <br>
 
+```
+mutation CreateOrder {
+  createOrder(input:{
+    id: "American Big black",
+    Price: 10.0,
+    Tax: 2
+  }) {
+    id,
+    Price,
+    Tax,
+    FinalPrice
+  }
+}
+
+query queryOrders {
+  orders {
+    id,
+    Price,
+    Tax,
+    FinalPrice
+  }
+}
+```
